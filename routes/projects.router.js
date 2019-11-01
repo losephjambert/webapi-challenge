@@ -16,6 +16,11 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', validateProjectID, (req, res) => {
+  const project = req.project;
+  res.status(200).send(project);
+});
+
 router.post('/', validateProject, async (req, res) => {
   const project = req.project;
   try {
@@ -27,6 +32,24 @@ router.post('/', validateProject, async (req, res) => {
     res.status(500).send({ message: `Error saving project to database` });
   }
 });
+
+async function validateProjectID(req, res, next) {
+  const { id } = req.params;
+  try {
+    const project = await projectModel.get(id);
+    if (project) {
+      req.project = project;
+      next();
+    } else {
+      res.status(404).send({ message: `Project with id ${id} does not exist` });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: `Error retrieving project with id ${id} from database`
+    });
+  }
+}
 
 function validateProject(req, res, next) {
   console.log(req.body);
