@@ -21,3 +21,5 @@ What can the API return to help clients know if a request was successful?
 If the request from the client was successful, an API can return a response code in the 200 - 299 range to indicate a successful request.
 
 How can we partition our application into sub-applications?
+
+One method to partition our application into sub-applications is to use the router/resource mental-model and create a single router for each resource type, then expose them at our application route. If our application is fairly large and complex, we can further atomize our routes by operation: `GET`, `POST`, `DELETE`, `PUT`, etc
