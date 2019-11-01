@@ -14,6 +14,8 @@ Middleware is re-usable modules of code that you can run during your application
 
 Describe a Resource?
 
+A resource anything you need to manage in order to build a system. If the CRUD operations are the system's verbs, then we can think of resources as the system's nouns. When handling resources, we should user one URI per resource. So if our system has users, all user related actions should happen at the same URI, e.g. `/api/users`
+
 What can the API return to help clients know if a request was successful?
 
 How can we partition our application into sub-applications?
