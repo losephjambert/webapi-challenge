@@ -3,7 +3,7 @@ const projectModel = require('../data/helpers/projectModel.js');
 module.exports = { validateProject, validateProjectID };
 
 async function validateProjectID(req, res, next) {
-  const { id } = req.params;
+  const { id } = req.params || req.body.project_id;
   try {
     const project = await projectModel.get(id);
     if (project) {

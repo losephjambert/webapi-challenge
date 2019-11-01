@@ -26,6 +26,18 @@ router.get('/:id', validateActionID, async (req, res) => {
   res.status(200).send(action);
 });
 
+router.post('/', validateProjectID, async (req, res) => {
+  const action = req.body;
+
+  try {
+    const newAction = await actionModel.insert(action);
+    res.status(201).send(newAction);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: `Could not save action to database` });
+  }
+});
+
 async function validateActionID(req, res, next) {
   const { id } = req.params;
   try {
