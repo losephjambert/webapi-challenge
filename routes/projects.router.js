@@ -33,6 +33,19 @@ router.post('/', validateProject, async (req, res) => {
   }
 });
 
+router.put('/:id', validateProjectID, validateProject, async (req, res) => {
+  const { id } = req.params;
+  const changes = req.project;
+  console.log(changes);
+  try {
+    const updatedProject = await projectModel.update(id, changes);
+    res.status(202).send(updatedProject);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: `Error updating project with id: ${id}` });
+  }
+});
+
 async function validateProjectID(req, res, next) {
   const { id } = req.params;
   try {
@@ -52,7 +65,6 @@ async function validateProjectID(req, res, next) {
 }
 
 function validateProject(req, res, next) {
-  console.log(req.body);
   if (!req.body) {
     res.status(400).send({ message: `Missing project data` });
   } else {
