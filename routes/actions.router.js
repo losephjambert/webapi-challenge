@@ -38,6 +38,19 @@ router.post('/', validateProjectID, async (req, res) => {
   }
 });
 
+router.put('/:id', validateProjectID, validateActionID, async (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  try {
+    const updateAction = await actionModel.update(id, changes);
+    res.status(202).send(updateAction);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: `Error updating action ${id}` });
+  }
+});
+
 async function validateActionID(req, res, next) {
   const { id } = req.params;
   try {
