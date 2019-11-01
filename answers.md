@@ -18,4 +18,6 @@ A resource anything you need to manage in order to build a system. If the CRUD o
 
 What can the API return to help clients know if a request was successful?
 
+If the request from the client was successful, an API can return a response code in the 200 - 299 range to indicate a successful request.
+
 How can we partition our application into sub-applications?
