@@ -51,6 +51,21 @@ router.put('/:id', validateProjectID, validateActionID, async (req, res) => {
   }
 });
 
+router.delete('/:id', validateActionID, async (req, res) => {
+  const { id } = req.params;
+  try {
+    await actionModel.remove(id);
+    res
+      .status(203)
+      .send({ message: `Successfully deleted action ${id}`, data: req.action });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .send({ message: `Error removing action ${id} from the database` });
+  }
+});
+
 async function validateActionID(req, res, next) {
   const { id } = req.params;
   try {
